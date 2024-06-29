@@ -1,0 +1,47 @@
+gitdir=$(git rev-parse --show-toplevel 2>/dev/null)
+
+alias help='xhelp'
+alias build=' mvn package  -Dmaven.test.skip=true'
+alias clean='make clean'
+alias test='make test'
+alias run='make app'
+alias classpath='make classpath'
+alias touch='make touch'
+#alias touch='find ./src -name "*" -type f -exec touch {} \;'
+alias vmargs='make vmargs'
+alias jdkflags='make jdkflags'
+alias vmarg='make vmarg'
+alias emc='emacsclient -c'
+alias helloworld='make HelloWorld'
+alias drip-kill-all='jps|grep Main|cut -d " " -f1|xargs kill'
+alias jps='~leeyg/develop/poc/utils/bin/jps.sh'
+alias jni='make jni'
+alias reload-jdk='deactivate && . ~/ports/template-benchmark/etc/activate'
+
+xhelp()
+{
+  cat <<EOC
+  commands list--
+  clean
+  test
+  run
+  classpath
+  touch
+  touch
+  vmargs
+  jdkflags
+  vmarg
+  emc
+  helloworld
+  drip-kill-all
+  jps
+  jni
+  reload-jdk
+
+  mvn package  -Dmaven.test.skip=true
+  mvn --log-file $gitdir/mvn.log process-test-classes
+  java -jar /opt/asmtools-8.0/lib/asmtools.jar jdis -lt -lv  target/classes/com/nci/apps/mock/Test.class
+  javap -cp target/classes -c -v com.nci.apps.mock.Test
+EOC
+
+}
